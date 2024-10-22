@@ -2,10 +2,18 @@
  * @Author       : MrYu
  * @Date         : 2024-10-21 09:15:40
  * @LastEditors  : MrYu
- * @LastEditTime : 2024-10-22 10:51:41
+ * @LastEditTime : 2024-10-22 14:56:32
  * @FilePath     : /updater/src/main/index.ts
  */
-import { app, shell, BrowserWindow, ipcMain, autoUpdater, FeedURLOptions } from 'electron'
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  autoUpdater,
+  FeedURLOptions,
+  Notification
+} from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -69,7 +77,7 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
   update.updateElectronApp()
-
+  new Notification({ title: 'option.title', body: 'option.body' }).show()
   const server = 'https://update.electronjs.org'
   const feed =
     `${server}/OWNER/REPO/${process.platform}-${process.arch}/${app.getVersion()}` as unknown
@@ -81,7 +89,7 @@ app.whenReady().then(() => {
   autoUpdater.setFeedURL(feed as FeedURLOptions)
   setInterval(
     () => {
-      new window.Notification(option.title, option)
+      new Notification({ title: option.title, body: option.body }).show()
       autoUpdater.checkForUpdates()
     },
     10 * 1000
