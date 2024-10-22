@@ -2,7 +2,7 @@
  * @Author       : MrYu
  * @Date         : 2024-10-21 09:15:40
  * @LastEditors  : MrYu
- * @LastEditTime : 2024-10-22 10:30:17
+ * @LastEditTime : 2024-10-22 10:51:41
  * @FilePath     : /updater/src/main/index.ts
  */
 import { app, shell, BrowserWindow, ipcMain, autoUpdater, FeedURLOptions } from 'electron'
@@ -50,19 +50,7 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
-  update.updateElectronApp()
 
-  const server = 'https://update.electronjs.org'
-  const feed =
-    `${server}/OWNER/REPO/${process.platform}-${process.arch}/${app.getVersion()}` as unknown
-
-  autoUpdater.setFeedURL(feed as FeedURLOptions)
-  setInterval(
-    () => {
-      autoUpdater.checkForUpdates()
-    },
-    10 * 60 * 1000
-  )
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
   // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
@@ -80,6 +68,25 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+  update.updateElectronApp()
+
+  const server = 'https://update.electronjs.org'
+  const feed =
+    `${server}/OWNER/REPO/${process.platform}-${process.arch}/${app.getVersion()}` as unknown
+  const option = {
+    title: '温馨提示',
+    body: '不要天天坐在电脑前，要注意休息！'
+  }
+
+  autoUpdater.setFeedURL(feed as FeedURLOptions)
+  setInterval(
+    () => {
+      new window.Notification(option.title, option)
+      autoUpdater.checkForUpdates()
+    },
+    10 * 1000
+    // 10 * 60 * 1000
+  )
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
