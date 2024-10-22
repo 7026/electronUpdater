@@ -1,9 +1,9 @@
-name: Build/release Electron app
+name: mryu template
 
 on:
   push:
     tags:
-      - v1.0.16
+      - v1.0.17
 
 jobs:
   release:
