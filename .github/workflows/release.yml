@@ -3,7 +3,7 @@ name: Build/release Electron app
 on:
   push:
     tags:
-      - v1.0.12
+      - v1.0.13
 
 jobs:
   release:
@@ -31,11 +31,11 @@ jobs:
 
       - name: build-mac
         if: matrix.os == 'macos-latest'
-        run: npm run build:mac
+        run: npm run make
 
       - name: build-win
         if: matrix.os == 'windows-latest'
-        run: npm run build:win
+        run: npm run make
 
       - name: release
         uses: softprops/action-gh-release@v1
