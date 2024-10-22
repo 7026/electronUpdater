@@ -3,7 +3,7 @@ name: mryu template
 on:
   push:
     tags:
-      - v1.0.17
+      - v1.0.18
 
 jobs:
   release:
