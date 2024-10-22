@@ -3,7 +3,7 @@ name: mryu template
 on:
   push:
     tags:
-      - v1.0.19
+      - v1.0.20
 
 jobs:
   release:
@@ -21,6 +21,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: install electron-builder
+        run: npm install electron-builder
 
       - name: Install Dependencies
         run: npm install
