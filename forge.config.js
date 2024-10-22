@@ -2,7 +2,7 @@
  * @Author       : MrYu
  * @Date         : 2024-10-22 09:59:03
  * @LastEditors  : MrYu
- * @LastEditTime : 2024-10-22 13:48:42
+ * @LastEditTime : 2024-10-22 14:25:05
  * @FilePath     : /updater/forge.config.js
  */
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
       config: {
         repository: {
           owner: 'MrYu',
-          name: 'electronUpdater'
+          name: 'electronUp'
         },
         prerelease: false,
         draft: true
