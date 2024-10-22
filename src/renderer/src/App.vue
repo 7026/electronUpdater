@@ -1,7 +1,19 @@
+<!--
+ * @Author       : MrYu
+ * @Date         : 2024-10-21 09:15:40
+ * @LastEditors  : MrYu
+ * @LastEditTime : 2024-10-22 10:38:25
+ * @FilePath     : /updater/src/renderer/src/App.vue
+-->
 <script setup lang="ts">
 import Versions from './components/Versions.vue'
 
+import config from '../../../package.json'
+
 const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const versions = config.version
+
 </script>
 
 <template>
@@ -22,5 +34,6 @@ const ipcHandle = () => window.electron.ipcRenderer.send('ping')
       <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>
     </div>
   </div>
+  <h1 style="color: cyan">V{{ versions }}</h1>
   <Versions />
 </template>

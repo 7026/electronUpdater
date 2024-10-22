@@ -1,7 +1,16 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+/**               Static Typing
+ * @Author       : MrYu
+ * @Date         : 2024-10-21 09:15:40
+ * @LastEditors  : MrYu
+ * @LastEditTime : 2024-10-22 10:30:17
+ * @FilePath     : /updater/src/main/index.ts
+ */
+import { app, shell, BrowserWindow, ipcMain, autoUpdater, FeedURLOptions } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+// require('update-electron-app')()
+import update from 'update-electron-app'
 
 function createWindow(): void {
   // Create the browser window.
@@ -41,7 +50,19 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
+  update.updateElectronApp()
 
+  const server = 'https://update.electronjs.org'
+  const feed =
+    `${server}/OWNER/REPO/${process.platform}-${process.arch}/${app.getVersion()}` as unknown
+
+  autoUpdater.setFeedURL(feed as FeedURLOptions)
+  setInterval(
+    () => {
+      autoUpdater.checkForUpdates()
+    },
+    10 * 60 * 1000
+  )
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
   // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
