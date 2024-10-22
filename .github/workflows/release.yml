@@ -3,7 +3,7 @@ name: Build/release Electron app
 on:
   push:
     tags:
-      - v1.0.15
+      - v1.0.16
 
 jobs:
   release:
@@ -25,17 +25,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # - name: build-linux
-      #   if: matrix.os == 'ubuntu-latest'
-      #   run: npm run build:linux
-
       - name: build-mac
         if: matrix.os == 'macos-latest'
-        run: npm run make
+        run: npm run make;npm run package
 
       - name: build-win
         if: matrix.os == 'windows-latest'
-        run: npm run make
+        run: npm run make;npm run package
 
       - name: release
         uses: softprops/action-gh-release@v1
