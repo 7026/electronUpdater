@@ -27,7 +27,7 @@ jobs:
 
       - name: build-mac
         if: matrix.os == 'macos-latest'
-        run: npm run make;npm run package
+        run: npm run package;npm run make
 
       - name: build-win
         if: matrix.os == 'windows-latest'
