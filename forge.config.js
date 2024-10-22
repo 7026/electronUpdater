@@ -1,18 +1,24 @@
 /*
  * @Author       : MrYu
- * @Date         : 2024-10-22 13:30:52
- * @LastEditors  : MrYu
- * @LastEditTime : 2024-10-22 13:30:53
- * @FilePath     : /updater/forge.config copy.js
- */
-/*
- * @Author       : MrYu
  * @Date         : 2024-10-22 09:59:03
  * @LastEditors  : MrYu
- * @LastEditTime : 2024-10-22 13:25:17
- * @FilePath     : /updater/forge.config.cjs
+ * @LastEditTime : 2024-10-22 13:48:42
+ * @FilePath     : /updater/forge.config.js
  */
 module.exports = {
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'MrYu',
+          name: 'electronUpdater'
+        },
+        prerelease: false,
+        draft: true
+      }
+    }
+  ],
   packagerConfig: {
     ignore: [
       /^\/src/,

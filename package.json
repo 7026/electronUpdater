@@ -1,8 +1,8 @@
 {
   "name": "template",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "An Electron application with Vue and TypeScript",
-  "main": "./out/main/index.js",
+  "main": "./dist/main/index.js",
   "author": "example.com",
   "homepage": "https://electron-vite.org",
   "repository": {
@@ -23,7 +23,9 @@
     "build:mac": "npm run build && electron-builder --mac",
     "build:linux": "npm run build && electron-builder --linux",
     "publish": "electron-forge publish",
-    "sign-dev-electron-app": "codesign --deep --force --verbose --sign - node_modules/electron/dist/Electron.app"
+    "sign-dev-electron-app": "codesign --deep --force --verbose --sign - node_modules/electron/dist/Electron.app",
+    "package": "electron-vite build --outDir=dist && electron-forge package",
+    "make": "electron-vite build --outDir=dist && electron-forge make"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
@@ -50,6 +52,11 @@
     "typescript": "^5.5.2",
     "vite": "^5.3.1",
     "vue": "^3.4.30",
-    "vue-tsc": "^2.0.22"
+    "vue-tsc": "^2.0.22",
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1"
   }
 }

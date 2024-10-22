@@ -2,16 +2,24 @@
  * @Author       : MrYu
  * @Date         : 2024-10-21 09:15:40
  * @LastEditors  : MrYu
- * @LastEditTime : 2024-10-22 10:51:41
+ * @LastEditTime : 2024-10-22 11:17:41
  * @FilePath     : /updater/src/main/index.ts
  */
-import { app, shell, BrowserWindow, ipcMain, autoUpdater, FeedURLOptions } from 'electron'
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  autoUpdater,
+  FeedURLOptions,
+  Notification
+} from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 // require('update-electron-app')()
-import update from 'update-electron-app'
-
+// import update from 'update-electron-app'
+// update.updateElectronApp()
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -62,27 +70,31 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
-
+  new Notification({ title: 'option.title', body: 'option.body' }).show()
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
-  update.updateElectronApp()
 
   const server = 'https://update.electronjs.org'
   const feed =
     `${server}/OWNER/REPO/${process.platform}-${process.arch}/${app.getVersion()}` as unknown
   const option = {
     title: '温馨提示',
-    body: '不要天天坐在电脑前，要注意休息！'
+    body: '不要天天坐在电脑前，要注意休息！查询更新状态中'
   }
 
   autoUpdater.setFeedURL(feed as FeedURLOptions)
   setInterval(
     () => {
-      new window.Notification(option.title, option)
-      autoUpdater.checkForUpdates()
+      try {
+        console.log(123)
+        new Notification({ title: option.title, body: option.body }).show()
+        autoUpdater.checkForUpdates()
+      } catch (e) {
+        console.log(e)
+      }
     },
     10 * 1000
     // 10 * 60 * 1000
